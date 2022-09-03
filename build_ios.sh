@@ -16,6 +16,7 @@ do
   name=$(basename ${projects[0]} .xcodeproj)
   echo "\nproject name is $name\n"
 
+  rm -r "$CURRENT/$dir/build"
   cd $dir
 
   # generate archive file
@@ -29,7 +30,6 @@ do
       -archivePath "build/$name.xcarchive" clean archive
 
   else
-    echo ''
     xcodebuild -sdk "iphoneos" \
       -scheme $name \
       -configuration Release \

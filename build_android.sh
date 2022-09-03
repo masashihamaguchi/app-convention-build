@@ -13,6 +13,7 @@ do
   name=$(basename ${dir})
   echo "\nproject name is $name\n"
 
+  rm -r "$CURRENT/$dir/app/build/outputs/apk/debug"
   cd $dir
 
   # generate apk file

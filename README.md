@@ -33,6 +33,13 @@ chmod +x filename.sh
 
 `ios`, `android`ディレクトリが作成されるので、iOSのプロジェクトファイルを`ios`ディレクトリに、Androidのプロジェクトファイルを`android`ディレクトリに入れて下さい。
 
+`config/export_ipa.plist`にDeveloperアカウントのTeam IDを入力して下さい。
+
+```xml
+    <key>teamID</key>
+    <string>XXXXXXXXXX</string>
+```
+
 ### Build
 
 アプリのビルドを行います。
