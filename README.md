@@ -8,13 +8,20 @@ iOS、Androidアプリを一括でビルド、インストールするための�
 
 以下のコマンドが通るようにして下さい。
 - xcodebuild
+- python
 - adb
 - npm
 
-ios-deployをインストールします。
+`python-dotenv`をインストールします。
 
 ```bash
-npm install -g --unsafe-perm=true ios-deploy
+$ pip install python-dotenv
+```
+
+`ios-deploy`をインストールします。
+
+```bash
+$ npm install -g --unsafe-perm=true ios-deploy
 ```
 
 ## Usage
@@ -28,17 +35,36 @@ $ ./init.sh
 スクリプト実行時に`Permission denied`と表示されたら以下のコマンドを実行して下さい。
 
 ```bash
-chmod +x filename.sh
+$ chmod +x init.sh
 ```
 
 `ios`, `android`ディレクトリが作成されるので、iOSのプロジェクトファイルを`ios`ディレクトリに、Androidのプロジェクトファイルを`android`ディレクトリに入れて下さい。
 
-`config/export_ipa.plist`にDeveloperアカウントのTeam IDを入力して下さい。
+**for iOS**
 
-```xml
-    <key>teamID</key>
-    <string>XXXXXXXXXX</string>
-```
+`.ipa`ファイルを生成する時に使用する署名の設定を行います。
+
+`config/AppIDs.csv`ファイルに`.ipa`ファイルを作成するアプリのBundleIDを入力します。
+
+|     AppID     |
+|:-------------:|
+| com.hoge.app1 |
+| com.hoge.app2 |
+| com.hoge.app3 |
+
+Apple Developer ProgramのAccountページからアプリをインストールするiOS端末を登録します。
+
+登録したが完了したら、プロビジョニングプロファイルを作成します。
+
+> Type: Ad Hoc<br>
+> App ID: XC Wildcard
+
+[Devices](https://developer.apple.com/account/resources/devices/list) / [Profiles](https://developer.apple.com/account/resources/profiles/list)
+
+`.env`ファイルに署名をする際に使用するApple Developer Program登録したアカウントのTeam IDと、作成したプロビジョニングプロファイルを指定します。<br>
+※プロビジョニングプロファイルの名前にスペースを含む場合はダブルクォーテーションで囲んでください。
+
+プロビジョニングプロファイルをダウンロードして、Xcode上でプロビジョニングプロファイルを登録します。
 
 ### Build
 

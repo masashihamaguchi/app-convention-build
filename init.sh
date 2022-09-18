@@ -4,6 +4,7 @@ echo '=============================='
 echo 'App Convention Build\n'
 
 dirs=("ios" "android" "ios_output" "android_output")
+files=(".env.sample" "config/AppIDs.csv.sample")
 
 echo 'check directories...'
 
@@ -17,7 +18,23 @@ do
   fi
 done
 
+echo '\ncheck files...'
+
+for file in ${files[@]};
+do
+  d=$(dirname $file)
+  f=$(basename $file .sample)
+  if [ -f "$d/$f" ]; then
+    echo "$f ok!"
+  else
+    echo "create file $f"
+    cp $file "$d/$f"
+  fi
+done
+
 echo '=============================='
+
+chmod +x config.sh
 
 chmod +x build.sh
 chmod +x build_ios.sh

@@ -26,13 +26,15 @@ do
     xcodebuild -sdk "iphoneos" \
       -workspace $workspace \
       -scheme $name \
-      -configuration Release \
+      -configuration Debug \
+      archive \
       -archivePath "build/$name.xcarchive" clean archive
 
   else
     xcodebuild -sdk "iphoneos" \
       -scheme $name \
-      -configuration Release \
+      -configuration Debug \
+      archive \
       -archivePath "build/$name.xcarchive" clean archive
 
   fi
@@ -40,8 +42,8 @@ do
   # generate ipa file
   xcodebuild -exportArchive \
     -archivePath "build/$name.xcarchive" \
-    -exportOptionsPlist "$CURRENT/config/export_ipa.plist" \
-    -exportPath "build/ipa/"
+    -exportPath "build/ipa/" \
+    -exportOptionsPlist "$CURRENT/config/ExportOptions.plist"
 
   # copy ipa file
   cp "build/ipa/$name.ipa" "$CURRENT/ios_output/$name-develop.ipa"
